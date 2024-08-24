@@ -29,8 +29,8 @@ function drawLives() {
 }
 
 function createObstacle() {
-    const width = Math.random() * 100 + 20;
-    const height = 20;
+    const width = Math.random() * 50 + 20;
+    const height = 10;
     const x = Math.random() * (canvas.width - width);
     const y = -height;
     obstacles.push({ x, y, width, height });
