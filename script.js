@@ -221,6 +221,7 @@
 
 // update();
 /////////////////////////////////////////////////////////////////////////
+
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -236,7 +237,7 @@ const player = {
 };
 
 const obstacles = [];
-const obstacleSpeed = 3;
+const obstacleSpeed = 1;
 let score = 0;
 let lives = 3;
 let gameOver = false; // Flag to check if the game is over
@@ -371,26 +372,27 @@ document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
 // Touch event handlers
-let touchX = null;
+let touchStartX = null;
 
 function handleTouchStart(e) {
-    touchX = e.touches[0].clientX;
+    touchStartX = e.touches[0].clientX;
 }
 
 function handleTouchMove(e) {
-    if (!touchX) return;
+    if (!touchStartX) return;
     
-    const deltaX = e.touches[0].clientX - touchX;
-    if (deltaX > 0) {
-        player.dx = player.speed; // Move right
-    } else {
-        player.dx = -player.speed; // Move left
-    }
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - touchStartX;
+    
+    player.dx = deltaX * 0.1; // Scale down the movement to make it smoother
+    
+    // Update touchStartX to the current position to continue tracking movement
+    touchStartX = currentX;
 }
 
 function handleTouchEnd(e) {
     player.dx = 0; // Stop moving when the touch ends
-    touchX = null;
+    touchStartX = null;
 }
 
 // Add event listeners for touch events
