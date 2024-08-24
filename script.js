@@ -384,7 +384,7 @@ function handleTouchMove(e) {
     const currentX = e.touches[0].clientX;
     const deltaX = currentX - touchStartX;
     
-    player.dx = deltaX * 0.1; // Scale down the movement to make it smoother
+    player.dx = deltaX * 0.4; // Scale down the movement to make it smoother
     
     // Update touchStartX to the current position to continue tracking movement
     touchStartX = currentX;
