@@ -13,7 +13,7 @@ const player = {
 };
 
 const obstacles = [];
-const obstacleSpeed = 3;
+const obstacleSpeed = 1;
 let score = 0;
 let lives = 3;
 let gameOver = false; // Add a flag to check if the game is over
