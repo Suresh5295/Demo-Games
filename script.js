@@ -18,7 +18,7 @@ let score = 0;
 
 // Load the obstacle image
 const obstacleImage = new Image();
-obstacleImage.src = '../images/asteroid.png'; // Path to your obstacle icon
+obstacleImage.src = '../images/apple.png'; // Path to your obstacle icon
 
 function createObstacle() {
     const width = Math.random() * 100 + 20;
