@@ -163,7 +163,54 @@ function keyUp(e) {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'a' || e.key === 'd') player.dx = 0;
 }
 
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    player.x = canvas.width / 2; // Recenter player
+    player.y = canvas.height - 50; // Adjust player position
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas(); // Initial call to set size
+
+
+const controls = {
+    left: false,
+    right: false
+};
+
+document.addEventListener('touchstart', function(e) {
+    if (e.touches[0].clientX < canvas.width / 2) {
+        controls.left = true;
+    } else {
+        controls.right = true;
+    }
+});
+
+document.addEventListener('touchend', function(e) {
+    controls.left = false;
+    controls.right = false;
+});
+
+function movePlayer() {
+    if (controls.left) {
+        player.dx = -player.speed;
+    } else if (controls.right) {
+        player.dx = player.speed;
+    } else {
+        player.dx = 0;
+    }
+
+    player.x += player.dx;
+
+    if (player.x < 0) player.x = 0;
+    if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+}
+
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
+
+
 
 update();

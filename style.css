@@ -8,21 +8,29 @@ canvas {
     background: #222;
 }
 #reloadButton {
-    background-color: #f00;
-    color: #fff;
+    background: white;
+    color: black;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
+    font-size: 18px;
 }
 #gameOverModal {
-    display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 20px;
-    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
+
+#gameOverMessage {
+    color: white;
+    font-size: 24px;
+}
+
+
