@@ -29,12 +29,13 @@ function drawLives() {
 }
 
 function createObstacle() {
-    const width = Math.random() * 20 + 20;
-    const height = 10;
-    const x = Math.random() * (canvas.width - width);
-    const y = -height;
-    obstacles.push({ x, y, width, height });
+    // Define a size range for the square obstacles
+    const size = Math.random() * 20 + 20; // Size between 20 and 40
+    const x = Math.random() * (canvas.width - size);
+    const y = -size; // Start above the canvas
+    obstacles.push({ x, y, width: size, height: size }); // Use the same size for width and height
 }
+
 
 function drawPlayer() {
     ctx.fillStyle = 'green';
