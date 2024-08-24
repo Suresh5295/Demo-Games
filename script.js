@@ -6,8 +6,8 @@ canvas.height = window.innerHeight;
 const player = {
     x: canvas.width / 2,
     y: canvas.height - 50,
-    width: 50,
-    height: 50,
+    width: 20,
+    height: 20,
     dx: 0,
     speed: 3
 };
