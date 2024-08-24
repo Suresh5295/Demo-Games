@@ -15,10 +15,18 @@ const player = {
 const obstacles = [];
 const obstacleSpeed = 3;
 let score = 0;
+let lives = 3;
+let gameOver = false; // Add a flag to check if the game is over
 
 // Load the obstacle image
 const obstacleImage = new Image();
-obstacleImage.src = '../images/apple.png'; // Path to your obstacle icon
+obstacleImage.src = '../images/asteroid.png'; // Path to your obstacle icon
+
+function drawLives() {
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Arial';
+    ctx.fillText('Lives: ' + lives, 10, 20); // Display lives in the top-left corner
+}
 
 function createObstacle() {
     const width = Math.random() * 100 + 20;
@@ -87,8 +95,15 @@ function checkCollision() {
             player.x + player.width > obstacle.x &&
             player.y < obstacle.y + obstacle.height &&
             player.y + player.height > obstacle.y) {
-            alert('Game Over! Score: ' + score);
-            document.location.reload();
+            
+            lives--; // Reduce lives
+            
+            if (lives > 0) {
+                alert('Collision detected! Lives remaining: ' + lives + '. The game will restart.');
+                resetGame(); // Reset the game state but keep the same page
+            } else {
+                showGameOverModal(); // Show modal when lives reach 0
+            }
         }
         if (obstacle.y > canvas.height) {
             obstacles.splice(index, 1);
@@ -97,17 +112,46 @@ function checkCollision() {
     });
 }
 
+function showGameOverModal() {
+    const modal = document.getElementById('gameOverModal');
+    const message = document.getElementById('gameOverMessage');
+    message.textContent = 'Game Over! Final Score: ' + score + '. Click the "Reload Game" button to restart.';
+    modal.style.display = 'block'; // Show the modal
+    gameOver = true; // Set gameOver to true
+    // Remove event listeners to prevent further interaction
+    document.removeEventListener('keydown', keyDown);
+    document.removeEventListener('keyup', keyUp);
+}
+
+// Add click event to the reload button
+document.getElementById('reloadButton').addEventListener('click', function() {
+    // Reset lives and score when reloading the page
+    lives = 3;
+    score = 0;
+    gameOver = false; // Reset gameOver flag
+    location.reload(); // Reload the page to restart the game
+});
+
 function update() {
+    if (gameOver) return; // Stop updating if gameOver is true
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     movePlayer();
     drawPlayer();
     drawObstacles();
     checkCollision();
+    drawLives(); // Draw lives on the canvas
 
     if (Math.random() < 0.05) createObstacle();
 
     requestAnimationFrame(update);
+}
+
+function resetGame() {
+    obstacles.length = 0; // Clear all obstacles
+    player.x = canvas.width / 2; // Reset player position
+    player.y = canvas.height - 50;
 }
 
 function keyDown(e) {
