@@ -9,7 +9,7 @@ const player = {
     width: 50,
     height: 50,
     dx: 0,
-    speed: 5
+    speed: 3
 };
 
 const obstacles = [];
@@ -29,7 +29,7 @@ function drawLives() {
 }
 
 function createObstacle() {
-    const width = Math.random() * 50 + 20;
+    const width = Math.random() * 20 + 20;
     const height = 10;
     const x = Math.random() * (canvas.width - width);
     const y = -height;
